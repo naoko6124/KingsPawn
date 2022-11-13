@@ -4,6 +4,7 @@ local scene_manager = require "scene_manager"
 function love.load()
 	config.load()
 	scene_manager.load()
+	love._openConsole()
 end
 
 function love.update(dt)

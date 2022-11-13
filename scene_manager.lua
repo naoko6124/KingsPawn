@@ -1,8 +1,10 @@
 local scenes = {}
+scenes["splashscreen"] = require "scenes.splashscreen"
+scenes["error"] = require "scenes.error"
 scenes["home"] = require "scenes.home"
 scenes["game"] = require "scenes.game"
 
-local current_scene = "home"
+local current_scene = "splashscreen"
 
 function set_current_scene(scene_name)
 	current_scene = scene_name
