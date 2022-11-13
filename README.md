@@ -1,2 +1,2 @@
-# ChequeMate
+# XequeMate
 Jogo de xadrez hexagonal!
