@@ -406,10 +406,10 @@ function kill(unit, new_pos)
 								client.send(id)
 								client.send(key)
 							end
-							if match[id].units[key].tipo == "emperor" then
+							match[id].units[key] = nil
+							if key == 0 then
 								perder(id)
 							end
-							match[id].units[key] = nil
 							success = true
 						end
 					end
@@ -468,7 +468,7 @@ function receber()
 				local new_pos_network = tonumber(client.receive())
 
 				match[target_id_network].units[unit_id_network] = nil
-				match[id_network].units[unit_id_network].pos = new_pos_network
+				match[id_network].units[unit_id_2_network].pos = new_pos_network
 				if (unit_id_network == 0) then
 					perder(target_id_network)
 				else
