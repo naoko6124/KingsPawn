@@ -155,7 +155,7 @@ while true do
 						print(unit_id .. ": " .. new_pos)
 
 						for other_id, other in pairs(partida.players) do
-							if (i ~= other.id) then
+							if (player.id ~= other.id) then
 								clients[other.id]:send("move\n")
 								clients[other.id]:send(uid .. "\n")
 								clients[other.id]:send(unit_id .. "\n")
@@ -170,7 +170,7 @@ while true do
 						end
 					elseif (clientmessage == "ganhei") then
 						for other_id, other in pairs(partida.players) do
-							if (id ~= other_id) then
+							if (player.id ~= other_id) then
 								clients[other.id]:send("ganhou\n")
 								clients[other.id]:send(uid .. "\n")
 							end
