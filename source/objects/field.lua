@@ -449,12 +449,11 @@ function receber()
 				match[target_id_network].units[unit_id_network] = nil
 				if (unit_id_network == 0) then
 					perder(target_id_network)
+				end
+				if turn < table.getn(match) then
+					turn = turn + 1
 				else
-					if turn < table.getn(match) then
-						turn = turn + 1
-					else
-						turn = 0
-					end
+					turn = 0
 				end
 				local se_volume, m_volume = cfg.get_volume()
 				pass_turn_se:setVolume(se_volume/100)
@@ -471,12 +470,11 @@ function receber()
 				match[id_network].units[unit_id_2_network].pos = new_pos_network
 				if (unit_id_network == 0) then
 					perder(target_id_network)
+				end
+				if turn < table.getn(match) then
+					turn = turn + 1
 				else
-					if turn < table.getn(match) then
-						turn = turn + 1
-					else
-						turn = 0
-					end
+					turn = 0
 				end
 				local se_volume, m_volume = cfg.get_volume()
 				pass_turn_se:setVolume(se_volume/100)
