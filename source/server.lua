@@ -125,13 +125,15 @@ while true do
 
 						partidas[pid].players = new_match
 
+						local unit_id_2, new_pos
+
 						clients[player.id]:settimeout(4)
 						local msg, er = clients[player.id]:receive()
 						if (er == nil and msg ~= nil and msg == "move") then
 							clients[player.id]:settimeout(4)
-							local unit_id_2 = clients[player.id]:receive()
+							unit_id_2 = clients[player.id]:receive()
 							clients[player.id]:settimeout(4)
-							local new_pos = clients[player.id]:receive()
+							new_pos = clients[player.id]:receive()
 						end
 
 						for other_id, other in pairs(partida.players) do
