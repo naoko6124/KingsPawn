@@ -441,33 +441,41 @@ function receber()
 
 		if (err == nil and msg ~= nil) then
 			if (msg == "kill") then
-				id_network = tonumber(client.receive())
+				local target_id_network = tonumber(client.receive())
 				unit_id_network = tonumber(client.receive())
 
-				match[id_network].units[unit_id_network] = nil
+				match[target_id_network].units[unit_id_network] = nil
 				if (unit_id_network == 0) then
 					perder(id_network)
 				end
-			end
-			if (msg == "move") then
-				id_network = tonumber(client.receive())
-				unit_id_network = tonumber(client.receive())
-				new_pos_network = tonumber(client.receive())
+			if (msg == "killnmove") then
+				local target_id_network = tonumber(client.receive())
+				local unit_id_network = tonumber(client.receive())
+				local id_network = tonumber(client.receive())
+				local unit_id_2_network = tonumber(client.receive())
+				local new_pos_network = tonumber(client.receive())
 
-				print("oiii" .. id_network)
+				match[target_id_network].units[unit_id_network] = nil
+				match[id_network].units[unit_id_network].pos = new_pos_network
+				if (unit_id_network == 0) then
+					perder(id_network)
+				end
+			elseif (msg == "move") then
+				local id_network = tonumber(client.receive())
+				local unit_id_network = tonumber(client.receive())
+				local new_pos_network = tonumber(client.receive())
+
 				print(unit_id)
 				match[id_network].units[unit_id_network].pos = new_pos_network
 			end
-			if (msg == "turn") then
-				local se_volume, m_volume = cfg.get_volume()
-				pass_turn_se:setVolume(se_volume/100)
-				love.audio.play(pass_turn_se)
-				inicio_turno = love.timer.getTime()
-				if turn < table.getn(match) then
-					turn = turn + 1
-				else
-					turn = 0
-				end
+			local se_volume, m_volume = cfg.get_volume()
+			pass_turn_se:setVolume(se_volume/100)
+			love.audio.play(pass_turn_se)
+			inicio_turno = love.timer.getTime()
+			if turn < table.getn(match) then
+				turn = turn + 1
+			else
+				turn = 0
 			end
 		end
 	end

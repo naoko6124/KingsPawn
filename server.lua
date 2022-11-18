@@ -108,15 +108,28 @@ while false do
 						end
 						partidas[key].players = new_match
 
+						clients[player.id]:settimeout(4)
+						local msg, er = clients[player.id]:receive()
+						if (er == nil and msg ~= nil and msg == "move") then
+							clients[player.id]:settimeout(4)
+							local unit_id_2 = clients[player.id]:receive()
+							clients[player.id]:settimeout(4)
+							local new_pos = clients[player.id]:receive()
+						end
+
 						for other_id, other in pairs(partida.players) do
-							if (i ~= other.id) then
-								clients[other.id]:send("kill\n")
+							if (player.id ~= other.id) then
+								clients[other.id]:send("killnmove\n")
 								clients[other.id]:send(target_id .. "\n")
 								clients[other.id]:send(unit_id .. "\n")
+								if (err == nil and msg ~= nil and msg == "move") then
+									clients[other.id]:send(uid .. "\n")
+									clients[other.id]:send(unit_id_2 .. "\n")
+									clients[other.id]:send(new_pos .. "\n")
+								end
 							end
 						end
-					end
-					if (clientmessage == "move") then
+					elseif (clientmessage == "move") then
 						clients[i]:settimeout(4)
 						local unit_id = clients[i]:receive()
 						clients[i]:settimeout(4)
@@ -130,15 +143,13 @@ while false do
 								clients[other.id]:send(new_pos .. "\n")
 							end
 						end
-					end
-					if (clientmessage == "turn") then
+					elseif (clientmessage == "turn") then
 						for other_id, other in pairs(partida.players) do
 							if (player.id ~= other_id) then
 								clients[other.id]:send("turn\n")
 							end
 						end
-					end
-					if (clientmessage == "ganhei") then
+					elseif (clientmessage == "ganhei") then
 						for other_id, other in pairs(partida.players) do
 							if (id ~= other_id) then
 								clients[other.id]:send("ganhou\n")

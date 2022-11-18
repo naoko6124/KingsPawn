@@ -36,13 +36,37 @@ function update(dt)
 	mouse_x, mouse_y = love.mouse.getPosition()
 
 	love.mouse.setCursor(cursor)
-	if mouse_x >= 69 * sx and mouse_x <= 167 * sx then
+	if mouse_x >= 60 * sx and mouse_x <= 180 * sx then
 		if mouse_y >= 72 * sy and mouse_y <= 80 * sy then
 			love.mouse.setCursor(cursor_hover)
 		end
 		if mouse_y >= 90 * sy and mouse_y <= 98 * sy then
 			love.mouse.setCursor(cursor_hover)
 		end
+	end
+
+	if (love.mouse.isDown(1)) then
+		local sound_effect, music = config.get_volume()
+		mouse_x, mouse_y = love.mouse.getPosition()
+		if mouse_y >= 72 * sy and mouse_y <= 80 * sy then
+			if mouse_x >= 70 * sx and mouse_x <= 170 * sx then
+				sound_effect = math.floor((mouse_x/sx + 0.5)) - 70
+			elseif mouse_x >= 60 * sx and mouse_x <= 70 * sx then
+				sound_effect = 0
+			elseif mouse_x >= 170 * sx and mouse_x <= 180 * sx then
+				sound_effect = 100
+			end
+		end
+		if mouse_y >= 90 * sy and mouse_y <= 98 * sy then
+			if mouse_x >= 70 * sx and mouse_x <= 170 * sx then
+				music = math.floor((mouse_x/sx + 0.5)) - 70
+			elseif mouse_x >= 60 * sx and mouse_x <= 70 * sx then
+				music = 0
+			elseif mouse_x >= 170 * sx and mouse_x <= 180 * sx then
+				music = 100
+			end
+		end
+		config.set_volume(sound_effect, music)
 	end
 end
 
@@ -62,19 +86,7 @@ function draw(sx, sy)
 end
 
 function mousepressed(x, y, button, istouch)
-	if button == 1 then
-		local sound_effect, music = config.get_volume()
-		mouse_x, mouse_y = love.mouse.getPosition()
-		if mouse_x >= 70 * sx and mouse_x <= 170 * sx then
-			if mouse_y >= 72 * sy and mouse_y <= 80 * sy then
-				sound_effect = math.floor((mouse_x/sx + 0.5)) - 70
-			end
-			if mouse_y >= 90 * sy and mouse_y <= 98 * sy then
-				music = math.floor((mouse_x/sx + 0.5)) - 70
-			end
-		end
-		config.set_volume(sound_effect, music)
-	end
+
 end
 
 return {
