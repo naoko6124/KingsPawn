@@ -51,8 +51,8 @@ end
 function set_units(change_screen)
 	print(turn)
 	inicio_turno = love.timer.getTime()
-	loser.load(change_screen)
-	winner.load(change_screen)
+	lost = loser.load(change_screen)
+	win = winner.load(change_screen)
 
 	cursor = love.mouse.newCursor("sprites/UI/cursor.png", 6, 6)
 	cursor_hover = love.mouse.newCursor("sprites/UI/cursor_hover.png", 10, 6)
@@ -265,7 +265,7 @@ function draw(on_hud, mouse_pos, selected_pos, selected_old, zoom, offset_x, off
 					show_kills(unit, zoom, offset_x, offset_y, sx, sy)
 				elseif (selected_old == unit.pos) then
 					local try_kill = kill(unit, selected_pos)
-					local try_move = move(key, unit, selected_pos, tiles[selected_pos], selected_old)
+					local try_move = move(key, unit, selected_pos, tiles[selected_pos])
 
 					if (try_kill or try_move) then
 						pass_turn()
@@ -450,7 +450,7 @@ function receber()
 
 				match[target_id_network].units[unit_id_network] = nil
 				if (unit_id_network == 0) then
-					perder(id_network)
+					perder(target_id_network)
 				end
 				local se_volume, m_volume = cfg.get_volume()
 				pass_turn_se:setVolume(se_volume/100)
@@ -471,7 +471,7 @@ function receber()
 				match[target_id_network].units[unit_id_network] = nil
 				match[id_network].units[unit_id_network].pos = new_pos_network
 				if (unit_id_network == 0) then
-					perder(id_network)
+					perder(target_id_network)
 				end
 				local se_volume, m_volume = cfg.get_volume()
 				pass_turn_se:setVolume(se_volume/100)
@@ -487,7 +487,6 @@ function receber()
 				local unit_id_network = tonumber(client.receive())
 				local new_pos_network = tonumber(client.receive())
 
-				print(unit_id)
 				match[id_network].units[unit_id_network].pos = new_pos_network
 				local se_volume, m_volume = cfg.get_volume()
 				pass_turn_se:setVolume(se_volume/100)
