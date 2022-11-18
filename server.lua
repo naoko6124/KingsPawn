@@ -139,16 +139,10 @@ while false do
 						end
 					end
 					if (clientmessage == "ganhei") then
-						for key, partida in pairs(partidas) do
-							for id, player in pairs(partida.players) do
-								if player.id == i then
-									for other_id, other in pairs(partida.players) do
-										if (id ~= other_id) then
-											clients[other.id]:send("ganhou\n")
-											clients[other.id]:send(id .. "\n")
-										end
-									end
-								end
+						for other_id, other in pairs(partida.players) do
+							if (id ~= other_id) then
+								clients[other.id]:send("ganhou\n")
+								clients[other.id]:send(id .. "\n")
 							end
 						end
 					end

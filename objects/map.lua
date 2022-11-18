@@ -128,13 +128,6 @@ function draw(sx, sy)
 	selected_old = selected_pos
 
 	hud.draw(sx, sy)
-
-    local ax = math.floor((offset_x - 512)/zoom)
-   	local ay = math.floor((offset_y - 288)/zoom)
-    love.graphics.setColor(1, 0, 0)
-    love.graphics.rectangle("fill", offset_x-ax*zoom, offset_y-ay*zoom, 8, 8)
-    love.graphics.print("ax, ay: " .. ax .. ", " .. ay, 150, 12)
-    love.graphics.setColor(1, 1, 1)
 end
 
 function mousepressed(x, y, button, istouch)
@@ -155,8 +148,8 @@ function wheelmoved(dx, dy)
     	local ax = math.floor((offset_x - 512)/zoom)
    		local ay = math.floor((offset_y - 288)/zoom)
    		local old_zoom = zoom
-    	if (zoom + dy/10 < 1) then zoom = 1
-    	else zoom = zoom + dy/10 end
+    	if (zoom + dy/5 < 1) then zoom = 1
+    	else zoom = zoom + dy/5 end
     	offset_x = ax*zoom + 512
     	offset_y = ay*zoom + 288
     	pan_screen(0, 0)
@@ -164,8 +157,8 @@ function wheelmoved(dx, dy)
     	local ax = math.floor((offset_x - 512)/zoom)
    		local ay = math.floor((offset_y - 288)/zoom)
    		local old_zoom = zoom
-    	if (zoom + dy/10 < 1) then zoom = 1
-    	else zoom = zoom + dy/10 end
+    	if (zoom + dy/5 < 1) then zoom = 1
+    	else zoom = zoom + dy/5 end
     	offset_x = ax*zoom + 512
     	offset_y = ay*zoom + 288
     	pan_screen(0, 0)

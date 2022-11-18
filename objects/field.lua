@@ -1,5 +1,6 @@
 love.graphics.setDefaultFilter("nearest")
 local client = require "client"
+local cfg = require "config"
 local scripts = require "scripts"
 local standard = require "objects.standard"
 local loser = require "scenes.loser"
@@ -8,6 +9,8 @@ local winner = require "scenes.winner"
 local tile_move = scripts.new_animation(love.graphics.newImage("sprites/utility/spr_tile_move.png"), 32, 32, 0.5)
 local tile_kill = love.graphics.newImage("sprites/utility/spr_tile_kill.png")
 local tile_selected = love.graphics.newImage("sprites/utility/spr_tile_selected.png")
+
+local pass_turn_se = love.audio.newSource("songs/pass_turn.wav", "static")
 
 local match = {}
 
@@ -416,6 +419,9 @@ function kill(unit, new_pos)
 end
 
 function pass_turn()
+	local se_volume, m_volume = cfg.get_volume()
+	pass_turn_se:setVolume(se_volume/100)
+	love.audio.play(pass_turn_se)
 	if turn < table.getn(match) then
 		turn = turn + 1
 	else
@@ -453,6 +459,9 @@ function receber()
 				match[id_network].units[unit_id_network].pos = new_pos_network
 			end
 			if (msg == "turn") then
+				local se_volume, m_volume = cfg.get_volume()
+				pass_turn_se:setVolume(se_volume/100)
+				love.audio.play(pass_turn_se)
 				inicio_turno = love.timer.getTime()
 				if turn < table.getn(match) then
 					turn = turn + 1
