@@ -117,36 +117,24 @@ while false do
 						end
 					end
 					if (clientmessage == "move") then
-						for key, partida in pairs(partidas) do
-							for id, player in pairs(partida.order) do
-								if player.id == i then
-									clients[i]:settimeout(4)
-									local unit_id = clients[i]:receive()
-									clients[i]:settimeout(4)
-									local new_pos = clients[i]:receive()
+						clients[i]:settimeout(4)
+						local unit_id = clients[i]:receive()
+						clients[i]:settimeout(4)
+						local new_pos = clients[i]:receive()
 
-									for other_id, other in pairs(partida.players) do
-										if (i ~= other.id) then
-											clients[other.id]:send("move\n")
-											clients[other.id]:send(id .. "\n")
-											clients[other.id]:send(unit_id .. "\n")
-											clients[other.id]:send(new_pos .. "\n")
-										end
-									end
-								end
+						for other_id, other in pairs(partida.players) do
+							if (i ~= other.id) then
+								clients[other.id]:send("move\n")
+								clients[other.id]:send(id .. "\n")
+								clients[other.id]:send(unit_id .. "\n")
+								clients[other.id]:send(new_pos .. "\n")
 							end
 						end
 					end
 					if (clientmessage == "turn") then
-						for key, partida in pairs(partidas) do
-							for id, player in pairs(partida.players) do
-								if player.id == i then
-									for other_id, other in pairs(partida.players) do
-										if (id ~= other_id) then
-											clients[other.id]:send("turn\n")
-										end
-									end
-								end
+						for other_id, other in pairs(partida.players) do
+							if (player.id ~= other_id) then
+								clients[other.id]:send("turn\n")
 							end
 						end
 					end
