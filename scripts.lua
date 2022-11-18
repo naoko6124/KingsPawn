@@ -21,15 +21,15 @@ function new_animation(image, width, height, duration)
         end
     end
 
-    function animation:draw(flip, x, y, sx, sy)
+    function animation:draw(x, y, sx, sy)
         local spriteNum = math.floor(animation.currentTime / animation.duration * #animation.quads) + 1
         love.graphics.draw(
             animation.spriteSheet,
             animation.quads[spriteNum],
-            x*sy - (animation.width*sx/2) * flip,
-            y*sx - animation.height*sy/2,
+            x,
+            y,
             0,
-            sx * flip,
+            sx,
             sy
         )
     end

@@ -1,6 +1,12 @@
+local sound_effect
+local music
+
 function load()
+	love.graphics.setBackgroundColor(1, 1, 1, 1)
 	love.graphics.setDefaultFilter("nearest")
-	love.window.setMode(1280, 720, {resizable = true})
+	love.window.setMode(1024, 576, {resizable = true})
+	sound_effect = 50
+	music = 50
 end
 
 function keypressed(key)
@@ -14,7 +20,18 @@ function keypressed(key)
 	end
 end
 
+function set_volume(new_se, new_m)
+	sound_effect = new_se
+	music = new_m
+end
+
+function get_volume()
+	return sound_effect, music
+end
+
 return {
 	load = load,
-	keypressed = keypressed
+	keypressed = keypressed,
+	set_volume = set_volume,
+	get_volume = get_volume
 }

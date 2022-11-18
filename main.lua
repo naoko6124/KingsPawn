@@ -12,6 +12,7 @@ end
 
 function love.draw()
 	scene_manager.draw()
+	scene_manager.afterdraw()
 end
 
 function love.keypressed(key)
@@ -21,4 +22,12 @@ end
 
 function love.mousepressed(x, y, button, istouch)
    scene_manager.mousepressed(x, y, button, istouch)
+end
+
+function love.wheelmoved(dx, dy)
+	scene_manager.wheelmoved(dx, dy)
+end
+
+function love.textinput(t)
+	scene_manager.textinput(t)
 end
