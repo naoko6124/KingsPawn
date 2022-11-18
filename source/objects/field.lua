@@ -51,8 +51,6 @@ end
 function set_units(change_screen)
 	print(turn)
 	inicio_turno = love.timer.getTime()
-	lost = loser.load(change_screen)
-	win = winner.load(change_screen)
 
 	cursor = love.mouse.newCursor("sprites/UI/cursor.png", 6, 6)
 	cursor_hover = love.mouse.newCursor("sprites/UI/cursor_hover.png", 10, 6)
@@ -451,16 +449,17 @@ function receber()
 				match[target_id_network].units[unit_id_network] = nil
 				if (unit_id_network == 0) then
 					perder(target_id_network)
+				else
+					if turn < table.getn(match) then
+						turn = turn + 1
+					else
+						turn = 0
+					end
 				end
 				local se_volume, m_volume = cfg.get_volume()
 				pass_turn_se:setVolume(se_volume/100)
 				love.audio.play(pass_turn_se)
 				inicio_turno = love.timer.getTime()
-				if turn < table.getn(match) then
-					turn = turn + 1
-				else
-					turn = 0
-				end
 			elseif (msg == "killnmove") then
 				local target_id_network = tonumber(client.receive())
 				local unit_id_network = tonumber(client.receive())
@@ -472,16 +471,17 @@ function receber()
 				match[id_network].units[unit_id_network].pos = new_pos_network
 				if (unit_id_network == 0) then
 					perder(target_id_network)
+				else
+					if turn < table.getn(match) then
+						turn = turn + 1
+					else
+						turn = 0
+					end
 				end
 				local se_volume, m_volume = cfg.get_volume()
 				pass_turn_se:setVolume(se_volume/100)
 				love.audio.play(pass_turn_se)
 				inicio_turno = love.timer.getTime()
-				if turn < table.getn(match) then
-					turn = turn + 1
-				else
-					turn = 0
-				end
 			elseif (msg == "move") then
 				local id_network = tonumber(client.receive())
 				local unit_id_network = tonumber(client.receive())
@@ -516,11 +516,7 @@ function perder(id)
 		i = i + 1
 	end
 	match = new_match
-	if (table.getn(match) > 0) then
-		if turn ~= player then
-			turn = turn - 1
-		end
-	else
+	if (table.getn(match) == 0) then
 		ganhar(player)
 		if not singleplayer then
 			client.send("ganhei")
