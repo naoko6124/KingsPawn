@@ -76,6 +76,10 @@ function keypressed(key)
 
 end
 
+function mousepressed(x, y, button, istouch)
+
+end
+
 function wheelmoved(dx, dy)
 
 end
