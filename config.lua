@@ -5,6 +5,8 @@ function load()
 	love.graphics.setBackgroundColor(1, 1, 1, 1)
 	love.graphics.setDefaultFilter("nearest")
 	love.window.setMode(1024, 576, {resizable = true})
+	love.window.setTitle("KingsPawn")
+	love.window.setIcon(love.image.newImageData("icon.png"))
 	sound_effect = 50
 	music = 50
 end

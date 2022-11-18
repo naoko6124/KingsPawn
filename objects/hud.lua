@@ -78,24 +78,6 @@ function draw(sx, sy)
 		love.graphics.draw(apagada, 6 * sx, (6 + 14 * id) * sy, 0, sx, sy)
 		if (id == field.get_turn()) then
 			love.graphics.draw(acesa, 6 * sx, (6 + 14 * id) * sy, 0, sx, sy)
-			love.graphics.draw(
-				your_turn,
-				0,
-				0,
-				0,
-				ww/background:getWidth(),
-				wh/background:getHeight()
-			)
-			local minutos = math.floor((60 - math.floor(field.get_timer())) / 60)
-			local segundos = (60 - math.floor(field.get_timer())) - minutos * 60
-			if minutos < 10 then
-				minutos = "0" .. minutos
-			end
-			if segundos < 10 then
-				segundos = "0" .. segundos
-			end
-			love.graphics.printf(minutos, font, 978 * sx, 6 * sy, 1000, "left", 0, sx*2, sy*2)
-			love.graphics.printf(" : " .. segundos, font, 992 * sx, 6 * sy, 1000, "left", 0, sx*2, sy*2)
 		end
 		love.graphics.printf(player.name, font, 18 * sx, (6 + 14 * id) * sy, 1000, "left", 0, sx*2, sy*2)
 	end

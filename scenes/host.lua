@@ -26,7 +26,7 @@ local server_port = "port"
 local server_ip_show = ""
 local server_port_show = ""
 
-local selected_one = 0
+local selected_one = 1
 
 local piscando = love.timer.getTime()
 
@@ -115,7 +115,7 @@ function draw()
 		love.graphics.setColor(1, 1, 1)
 		love.graphics.rectangle("fill", 53 * sx, 66 * sy, 162 * sx, 11 * sy)
 		love.graphics.setColor(1, 0.4, 0.4)
-		love.graphics.printf("Your name must have at least 6 characters!", font, 56 * sx, 69 * sy, 1000, "left", 0, sx, sy)
+		love.graphics.printf("Your host must have at least 7 characters!", font, 56 * sx, 69 * sy, 1000, "left", 0, sx, sy)
 		love.graphics.setColor(1, 1, 1)
 	end
 end
@@ -142,7 +142,23 @@ function keypressed(key)
 	end
 	if key == "tab" then
 		selected_one = selected_one + 1
-		if selected_one == 3 then selected_one = 0 end
+		if selected_one == 3 then selected_one = 1 end
+	end
+	if key == "return" then
+		if server_host:len() < 7 then
+			error_port = love.timer.getTime()
+		end
+		if server_host:len() >= 7 and server_port:len() <= 18 and server_host ~= "server host" then
+			client.set_host(server_host)
+
+			if server_host:len() < 1 then
+				error_port = love.timer.getTime()
+			end
+			if server_host:len() >= 1 and server_port:len() <= 5 and server_port ~= "port" then
+				client.set_port(tonumber(server_port))
+				name()
+			end
+		end
 	end
 end
 
@@ -153,13 +169,13 @@ function mousepressed(x, y, button, istouch)
 				if server_host:len() < 7 then
 					error_port = love.timer.getTime()
 				end
-				if server_host:len() >= 7 and server_port:len() <= 18 then
+				if server_host:len() >= 7 and server_port:len() <= 18 and server_host ~= "server host" then
 					client.set_host(server_host)
 
 					if server_host:len() < 1 then
 						error_port = love.timer.getTime()
 					end
-					if server_host:len() >= 1 and server_port:len() <= 5 then
+					if server_host:len() >= 1 and server_port:len() <= 5 and server_port ~= "port" then
 						client.set_port(tonumber(server_port))
 						name()
 					end

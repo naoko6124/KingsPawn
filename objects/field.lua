@@ -91,13 +91,15 @@ function set_units(change_screen)
 	match[0].units[21] = { pos = tower2 + down_right, tipo = "pawn" }
 	match[0].units[22] = { pos = tower2 + up_right, tipo = "archer" }
 
+	match[0].units[23] = { pos = 243, tipo = "dragon" }
+
 	-- Green
 	base = 148
 
 	tower1 = base + left + down_left
 	tower2 = base + down * 2 + down_right
 
-	match[1].units[0] = { pos = base, tipo = "emperor" }
+	match[1].units[0] = { pos = 200, tipo = "emperor" }
 	match[1].units[1] = { pos = base + up, tipo = "wizard" }
 	match[1].units[2] = { pos = base + up_left, tipo = "halberd" }
 	match[1].units[3] = { pos = base + down_left, tipo = "mage" }
@@ -129,7 +131,7 @@ function set_units(change_screen)
 	tower1 = base + right + up_right
 	tower2 = base + up * 2 + up_left
 
-	match[2].units[0] = { pos = base, tipo = "emperor" }
+	match[2].units[0] = { pos = 222, tipo = "emperor" }
 	match[2].units[1] = { pos = base + up, tipo = "mage" }
 	match[2].units[2] = { pos = base + up_left, tipo = "halberd" }
 	match[2].units[3] = { pos = base + down_left, tipo = "wizard" }
@@ -161,7 +163,7 @@ function set_units(change_screen)
 	tower1 = base + left + up_left
 	tower2 = base + up * 2 + up_right
 
-	match[3].units[0] = { pos = base, tipo = "emperor" }
+	match[3].units[0] = { pos = 265, tipo = "emperor" }
 	match[3].units[1] = { pos = base + up, tipo = "mage" }
 	match[3].units[2] = { pos = base + up_left, tipo = "mage" }
 	match[3].units[3] = { pos = base + down_left, tipo = "halberd" }

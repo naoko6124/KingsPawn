@@ -49,7 +49,15 @@ while true do
 	end
 
 	for i = 1, totalclient do
-		if (clients[i] ~= nil) then
+		local ta_livre = true
+		for antes_pid, antes_partida in pairs(partidas) do
+			for antes_uid, antes_player in pairs(antes_partida.players) do
+				if (antes_player.id == i) then
+					ta_livre = false
+				end
+			end
+		end
+		if (clients[i] ~= nil and ta_livre) then
 			clients[i]:settimeout(0.01)
 			local clientmessage, err = clients[i]:receive()
 
@@ -111,10 +119,11 @@ while true do
 						local new_match = {}
 						local j = 0
 						for k, p in pairs(partida.players) do
-							new_match[i] = p
+							new_match[j] = p
 							j = j + 1
 						end
-						partidas[key].players = new_match
+
+						partidas[pid].players = new_match
 
 						clients[player.id]:settimeout(4)
 						local msg, er = clients[player.id]:receive()
@@ -142,6 +151,8 @@ while true do
 						local unit_id = clients[player.id]:receive()
 						clients[player.id]:settimeout(4)
 						local new_pos = clients[player.id]:receive()
+
+						print(unit_id .. ": " .. new_pos)
 
 						for other_id, other in pairs(partida.players) do
 							if (i ~= other.id) then

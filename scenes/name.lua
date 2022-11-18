@@ -107,6 +107,16 @@ function keypressed(key)
 	        name = string.sub(name, 1, byteoffset - 1)
 	    end
 	 end
+	 if key == "return" then
+		if name:len() <= 6 then
+			error = love.timer.getTime()
+		end
+		if name:len() >= 6 and name:len() <= 12 then
+			client.set_name(name)
+			love.mouse.setCursor(cursor)
+			connect()
+		end
+	 end
 end
 
 function mousepressed(x, y, button, istouch)
