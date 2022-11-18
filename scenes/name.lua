@@ -20,9 +20,9 @@ local mouse_x, mouse_y = love.mouse.getPosition()
 
 local cursor, cursor_hover
 
-name = "insert your name here"
+local name = "insert your name here"
 
-name_show = ""
+local name_show = ""
 
 local piscando = love.timer.getTime()
 
@@ -117,7 +117,8 @@ function mousepressed(x, y, button, istouch)
 					error = love.timer.getTime()
 				end
 				if name:len() >= 6 and name:len() <= 12 then
-					client.name = name
+					client.set_name(name)
+					love.mouse.setCursor(cursor)
 					connect()
 				end
 			end

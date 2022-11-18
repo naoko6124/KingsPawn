@@ -29,12 +29,12 @@ partidas = {}
 -- 	}
 -- }
 
-while false do
+while true do
 
 	server:settimeout(0.01)
 	local client, err = server:accept()
 
-	if not err then
+	if err == nil then
 		server:settimeout(2)
 		local clientname, err = client:receive()
 		if (err == nil and clientname ~= nil and clientname ~= "") then
@@ -70,6 +70,14 @@ while false do
 								clients[player.id]:send(partida.players[3].name .. "\n")
 							end
 							print("partida de " .. partida.players[0].name .. " iniciada")
+						else
+							for uid, player in pairs(partida.players) do
+								clients[player.id]:send("entrou\n")
+								clients[player.id]:send((partida.current - 1) .. "\n")
+								for oid, other in pairs(partida.players) do
+									clients[player.id]:send(other.name .. "\n")
+								end
+							end
 						end
 						hasPartida = true
 						break
@@ -130,15 +138,15 @@ while false do
 							end
 						end
 					elseif (clientmessage == "move") then
-						clients[i]:settimeout(4)
-						local unit_id = clients[i]:receive()
-						clients[i]:settimeout(4)
-						local new_pos = clients[i]:receive()
+						clients[player.id]:settimeout(4)
+						local unit_id = clients[player.id]:receive()
+						clients[player.id]:settimeout(4)
+						local new_pos = clients[player.id]:receive()
 
 						for other_id, other in pairs(partida.players) do
 							if (i ~= other.id) then
 								clients[other.id]:send("move\n")
-								clients[other.id]:send(id .. "\n")
+								clients[other.id]:send(uid .. "\n")
 								clients[other.id]:send(unit_id .. "\n")
 								clients[other.id]:send(new_pos .. "\n")
 							end
@@ -153,7 +161,7 @@ while false do
 						for other_id, other in pairs(partida.players) do
 							if (id ~= other_id) then
 								clients[other.id]:send("ganhou\n")
-								clients[other.id]:send(id .. "\n")
+								clients[other.id]:send(uid .. "\n")
 							end
 						end
 					end

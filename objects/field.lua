@@ -34,13 +34,13 @@ local cursor, cursor_hover
 local lost = false
 local win = false
 
-local inicio_turno = love.timer.getTime()
+local inicio_turno = nil
 
 local tempo = 0
 
 function update(dt)
 	tile_move:update(dt)
-	if (turn == player and not win) then
+	if (turn == player and not win and inicio_turno ~= nil) then
 		tempo = love.timer.getTime() - inicio_turno
 		if tempo > 60 then
 			pass_turn()
@@ -49,6 +49,8 @@ function update(dt)
 end
 
 function set_units(change_screen)
+	print(turn)
+	inicio_turno = love.timer.getTime()
 	loser.load(change_screen)
 	winner.load(change_screen)
 
@@ -448,7 +450,16 @@ function receber()
 				if (unit_id_network == 0) then
 					perder(id_network)
 				end
-			if (msg == "killnmove") then
+				local se_volume, m_volume = cfg.get_volume()
+				pass_turn_se:setVolume(se_volume/100)
+				love.audio.play(pass_turn_se)
+				inicio_turno = love.timer.getTime()
+				if turn < table.getn(match) then
+					turn = turn + 1
+				else
+					turn = 0
+				end
+			elseif (msg == "killnmove") then
 				local target_id_network = tonumber(client.receive())
 				local unit_id_network = tonumber(client.receive())
 				local id_network = tonumber(client.receive())
@@ -460,6 +471,15 @@ function receber()
 				if (unit_id_network == 0) then
 					perder(id_network)
 				end
+				local se_volume, m_volume = cfg.get_volume()
+				pass_turn_se:setVolume(se_volume/100)
+				love.audio.play(pass_turn_se)
+				inicio_turno = love.timer.getTime()
+				if turn < table.getn(match) then
+					turn = turn + 1
+				else
+					turn = 0
+				end
 			elseif (msg == "move") then
 				local id_network = tonumber(client.receive())
 				local unit_id_network = tonumber(client.receive())
@@ -467,15 +487,15 @@ function receber()
 
 				print(unit_id)
 				match[id_network].units[unit_id_network].pos = new_pos_network
-			end
-			local se_volume, m_volume = cfg.get_volume()
-			pass_turn_se:setVolume(se_volume/100)
-			love.audio.play(pass_turn_se)
-			inicio_turno = love.timer.getTime()
-			if turn < table.getn(match) then
-				turn = turn + 1
-			else
-				turn = 0
+				local se_volume, m_volume = cfg.get_volume()
+				pass_turn_se:setVolume(se_volume/100)
+				love.audio.play(pass_turn_se)
+				inicio_turno = love.timer.getTime()
+				if turn < table.getn(match) then
+					turn = turn + 1
+				else
+					turn = 0
+				end
 			end
 		end
 	end
@@ -534,6 +554,10 @@ function get_timer()
 	return tempo
 end
 
+function set_match(new_match)
+	match = new_match
+end
+
 function get_match()
 	return match
 end
@@ -558,6 +582,7 @@ end
 return {
 	update = update,
 	match = match,
+	set_match = set_match,
 	get_match = get_match,
 	draw = draw,
 	get_player = get_player,

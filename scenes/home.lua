@@ -34,7 +34,7 @@ function load(change_screen)
 	cursor = love.mouse.newCursor("sprites/UI/cursor.png", 6, 6)
 	cursor_hover = love.mouse.newCursor("sprites/UI/cursor_hover.png", 10, 6)
 
-	play_online = function() change_screen("name") end
+	play_online = function() change_screen("host") end
 	play_local = function() change_screen("game") end
 
 	config.load(change_screen)

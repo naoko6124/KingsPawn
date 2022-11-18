@@ -3,23 +3,30 @@ local field = require "objects.field"
 
 local background = nil
 
-queue = nil
-error = nil
+local queue = nil
+local error = nil
+
+local await = love.timer.getTime()
 
 function load(change_screen)
 	background = love.graphics.newImage("sprites/backgrounds/tela_loading.png")
+
+	await = love.timer.getTime()
 
 	queue = function() change_screen("queue") end
 	error = function() change_screen("error") end
 end
 
 function update(dt)
-	if (client.connect()) then
-		client.send("play")
-		field.set_player(tonumber(client.receive()))
-		queue()
-	else
-		error()
+	local tempo = love.timer.getTime() - await
+	if tempo > 1 then
+		if (client.connect()) then
+			client.send("play")
+			field.set_player(tonumber(client.receive()))
+			queue()
+		else
+			error()
+		end
 	end
 end
 

@@ -1,14 +1,17 @@
 local socket = require("socket")
-local host, port = "localhost", 8080
-tcp = assert(socket.tcp())
+local host = "localhost"
+local port = 8080
 
-my_id = 0
+local my_id = 0
 
-name = ""
+local name = ""
 
 function connect()
-	tcp:settimeout(0.1)
+	tcp = assert(socket.tcp())
+	print(host .. ":" .. port)
+	tcp:settimeout(2)
 	local err = tcp:connect(host, port)
+	print(err)
 	if err == nil then
 		return false
 	else
@@ -44,11 +47,30 @@ function send(mensagem)
 	end
 end
 
+function set_host(new_host)
+	host = new_host
+end
+
+function set_port(new_port)
+	port = new_port
+end
+
+function get_name()
+	return name
+end
+
+function set_name(new_name)
+	name = new_name
+end
+
 return {
+	set_host = set_host,
+	set_port = set_port,
 	connect = connect,
 	receive_anytime = receive_anytime,
 	receive = receive,
 	send = send,
 	id = my_id,
-	name = name
+	get_name = get_name,
+	set_name = set_name
 }
