@@ -111,19 +111,24 @@ while true do
 				if (err == nil and clientmessage ~= nil and clientmessage ~= "") then
 					if (clientmessage == "kill") then
 						clients[player.id]:settimeout(4)
-						local target_id = clients[player.id]:receive()
+						local target_id = tonumber(clients[player.id]:receive())
 						clients[player.id]:settimeout(4)
-						local unit_id = clients[player.id]:receive()
+						local unit_id = tonumber(clients[player.id]:receive())
 
-						partida.players[target_id] = nil
+						print("target_id: " .. target_id)
+
 						local new_match = {}
 						local j = 0
-						for k, p in pairs(partida.players) do
-							new_match[j] = p
-							j = j + 1
+						for k = 0, table.getn(partida.players) do
+							if (k ~= target_id) then
+								new_match[j] = partida.players[k]
+								print(j .. ": " .. partida.players[k].name)
+								j = j + 1
+							end
 						end
 
 						partidas[pid].players = new_match
+						partida.players = new_match
 
 						local unit_id_2, new_pos
 
@@ -136,12 +141,15 @@ while true do
 							new_pos = clients[player.id]:receive()
 						end
 
-						for other_id, other in pairs(partida.players) do
+						for k, other in pairs(new_match) do
+							print(k)
+							print(other.name)
 							if (player.id ~= other.id) then
 								clients[other.id]:send("killnmove\n")
 								clients[other.id]:send(target_id .. "\n")
 								clients[other.id]:send(unit_id .. "\n")
 								if (err == nil and msg ~= nil and msg == "move") then
+									print(uid .. " - " .. unit_id_2)
 									clients[other.id]:send(uid .. "\n")
 									clients[other.id]:send(unit_id_2 .. "\n")
 									clients[other.id]:send(new_pos .. "\n")

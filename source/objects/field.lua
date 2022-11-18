@@ -3,8 +3,6 @@ local client = require "client"
 local cfg = require "config"
 local scripts = require "scripts"
 local standard = require "objects.standard"
-local loser = require "scenes.loser"
-local winner = require "scenes.winner"
 
 local tile_move = scripts.new_animation(love.graphics.newImage("sprites/utility/spr_tile_move.png"), 32, 32, 0.5)
 local tile_kill = love.graphics.newImage("sprites/utility/spr_tile_kill.png")
@@ -34,6 +32,8 @@ local cursor, cursor_hover
 local lost = false
 local win = false
 
+local winner, loser
+
 local inicio_turno = nil
 
 local tempo = 0
@@ -51,6 +51,8 @@ end
 function set_units(change_screen)
 	print(turn)
 	inicio_turno = love.timer.getTime()
+	winner = function() change_screen("winner") end
+	loser = function() change_screen("loser") end
 
 	cursor = love.mouse.newCursor("sprites/UI/cursor.png", 6, 6)
 	cursor_hover = love.mouse.newCursor("sprites/UI/cursor_hover.png", 10, 6)
