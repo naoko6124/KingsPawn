@@ -1,6 +1,6 @@
 # King's Game
 
-A strategy game on a hexagon tile-based board with fantasy-like characters, developed for the 15th Game Jam at Facens' Plugin.
+A strategy game on a hexagon tile-based board with fantasy-like characters, developed for the 15th Game Jam at Facens Plugin.
 
 ## Documentation
 
