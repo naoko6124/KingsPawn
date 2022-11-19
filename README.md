@@ -1,4 +1,4 @@
-# King's Game
+# King's Pawn
 
 A strategy game on a hexagon tile-based board with fantasy-like characters, developed for the 15th Game Jam at Facens Plugin.
 
