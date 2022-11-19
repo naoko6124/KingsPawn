@@ -4,13 +4,32 @@ A strategy game on a hexagon tile-based board with fantasy-like characters, deve
 
 ## Documentation
 
-#### Using start_server.bat
+## Start the server
+
+Use the `start_server.bat` to host the game on an TCP port on your pc and pass the host and port to your friends to connect with it.
+
+#### Using `start_server.bat`
 
 ```batch
   lua server.lua HOST PORT
 ```
 
-| Parâmetro   | Tipo       | Descrição                           |
+| Key   | Type       | Description                           |
 | :---------- | :--------- | :---------------------------------- |
 | `HOST` | `string` | IP adress that the server will use. |
 | `PORT` | `number` | TCP port that the server will use. |
+
+## FAQ
+
+#### Can I play with my friends online?
+
+Yes, if you have an open TCP port at your router, just use it on the `start_server.bat`. However, if you can't open a port, then we reccomend using [NGROK](https://ngrok.com) to reverse proxy front an TCP port.
+
+#### Can I play with less than four players?
+
+At the time, no. We're still working to make possible to play with less than four players.
+
+#### Can the server host multiple matches?
+
+At the time, no. We're still working on multiple threads to run more than one match. (You can still do it with the current code, but if two players try to do a movement at the same time it'll much likely cause an overload on the server and one of them will fail!)
+
