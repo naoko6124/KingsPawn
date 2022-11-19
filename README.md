@@ -23,7 +23,7 @@ Run `start_server.bat` or manually use `server.lua` to host the game on an TCP p
 
 #### 1. Can I play with my friends online?
 
-Yes, if you have an open TCP port at your router, just use it on the `start_server.bat`. However, if you can't open a port, then we reccomend using [NGROK](https://ngrok.com) to reverse proxy front an TCP port.
+Yes, if you have an open TCP port at your router, just use it on the `server.lua`. However, if you can't open a port, then we reccomend using [NGROK](https://ngrok.com) to reverse proxy front an TCP port.
 
 #### 2. Can I play with less than four players?
 
