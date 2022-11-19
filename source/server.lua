@@ -116,19 +116,23 @@ while true do
 						local unit_id = tonumber(clients[player.id]:receive())
 
 						print("target_id: " .. target_id)
+						clients[partida.players[target_id].id]:send("perdeu\n")
 
-						local new_match = {}
-						local j = 0
-						for k = 0, table.getn(partida.players) do
-							if (k ~= target_id) then
-								new_match[j] = partida.players[k]
-								print(j .. ": " .. partida.players[k].name)
-								j = j + 1
+						if unit_id == 0 then
+							local new_match = {}
+							local j = 0
+							for k = 0, table.getn(partida.players) do
+								if (k == target_id) then
+								else
+									new_match[j] = partida.players[k]
+									print(j .. ": " .. partida.players[k].name)
+									j = j + 1
+								end
 							end
-						end
 
-						partidas[pid].players = new_match
-						partida.players = new_match
+							partidas[pid].players = new_match
+							partida.players = new_match
+						end
 
 						local unit_id_2, new_pos
 
@@ -141,7 +145,7 @@ while true do
 							new_pos = clients[player.id]:receive()
 						end
 
-						for k, other in pairs(new_match) do
+						for k, other in pairs(partida.players) do
 							print(k)
 							print(other.name)
 							if (player.id ~= other.id) then

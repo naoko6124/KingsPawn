@@ -36,7 +36,7 @@ function update(dt)
 	sy = wh/screen_height
 end
 
-function draw(winner)
+function draw()
 	local ww = love.graphics.getWidth()
 	local wh = love.graphics.getHeight()
 
@@ -48,8 +48,6 @@ function draw(winner)
 		ww/background:getWidth(),
 		wh/background:getHeight()
 	)
-
-	love.graphics.printf(winner, font, 142 * sx, 28 * sy, 1000, "left", 0, sx, sy)
 
 	mouse_x, mouse_y = love.mouse.getPosition()
 	love.mouse.setCursor(cursor)
