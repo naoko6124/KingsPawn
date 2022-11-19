@@ -4,7 +4,7 @@ A strategy game on a hexagon tile-based board with fantasy-like characters, deve
 
 ## Documentation
 
-## Start the server
+#### Start the server
 
 Use the `start_server.bat` to host the game on an TCP port on your pc and pass the host and port to your friends to connect with it.
 
