@@ -6,7 +6,7 @@ A strategy game on a hexagon tile-based board with fantasy-like characters, deve
 
 #### Start the server
 
-Use the `start_server.bat` or manually use `server.lua` to host the game on an TCP port on your pc and pass the host and port to your friends to connect with it.
+Run `start_server.bat` or manually use `server.lua` to host the game on an TCP port on your pc and pass the host and port to your friends to connect with it.
 
 #### Using `server.lua`
 
