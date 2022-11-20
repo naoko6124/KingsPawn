@@ -32,5 +32,3 @@ At the time, no. We're still working to make possible to play with less than fou
 #### 3. Can the server host multiple matches?
 
 At the time, no. We're still working on multiple threads to run more than one match. (You can still do it with the current code, but if two players try to do a movement at the same time it'll much likely cause an overload on the server and one of them will fail!)
-
->>>>>>> 8cb6456da1b76d90bfc175e424fd4ca6a558c290
