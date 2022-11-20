@@ -1,7 +1,4 @@
 # King's Pawn
-<<<<<<< HEAD
-Jogo de estratégia em tabuleiro hexagonal com peças basedas em personagens de fantasia.
-=======
 
 A strategy game on a hexagon tile-based board with fantasy-like characters, developed for the 15th Game Jam at Facens Plugin.
 
