@@ -278,12 +278,10 @@ function show_moves(unit, zoom, offset_x, offset_y, tiles, sx, sy)
 					advance = false
 				end
 			end
-			if (unit.tipo == "emperor") then
-				for other_id, other_player in pairs(match) do
-					for key, other_unit in pairs(match[other_id].units) do
-						if (other_unit.pos == pos) then
-							advance = false
-						end
+			for other_id, other_player in pairs(match) do
+				for key, other_unit in pairs(match[other_id].units) do
+					if (other_unit.pos == pos) then
+						advance = false
 					end
 				end
 			end
@@ -353,12 +351,10 @@ function move(unit_id, unit, new_pos, new_tile)
 							advance = false
 						end
 					end
-					if (unit.tipo == "emperor") then
-						for other_id, other_player in pairs(match) do
-							for key, other_unit in pairs(match[other_id].units) do
-								if (other_unit.pos == new_pos) then
-									advance = false
-								end
+					for other_id, other_player in pairs(match) do
+						for key, other_unit in pairs(match[other_id].units) do
+							if (other_unit.pos == new_pos) then
+								advance = false
 							end
 						end
 					end
@@ -481,6 +477,12 @@ function receber()
 				pass_turn_se:setVolume(se_volume/100)
 				love.audio.play(pass_turn_se)
 				inicio_turno = love.timer.getTime()
+				if turn < table.getn(match) then
+					turn = turn + 1
+				else
+					turn = 0
+				end
+			elseif (msg == "turn") then
 				if turn < table.getn(match) then
 					turn = turn + 1
 				else

@@ -33,6 +33,7 @@ standard["dragon"] = {
 		can_move_tiles = function ()
 			return {
 				"plains",
+				"ocean_bridge",
 				"plains_castle",
 				"plains_florest",
 				"plains_village",
@@ -76,6 +77,7 @@ standard["archer"] = {
 		can_move_tiles = function ()
 			return {
 				"plains",
+				"ocean_bridge",
 				"plains_castle",
 				"plains_florest",
 				"plains_village",
@@ -116,6 +118,7 @@ standard["halberd"] = {
 		can_move_tiles = function ()
 			return {
 				"plains",
+				"ocean_bridge",
 				"plains_castle",
 				"plains_village",
 				"desert_oasis",
@@ -161,6 +164,7 @@ standard["mage"] = {
 		can_move_tiles = function ()
 			return {
 				"plains",
+				"ocean_bridge",
 				"plains_castle",
 				"plains_village",
 				"desert_oasis",
@@ -212,6 +216,7 @@ standard["wizard"] = {
 		can_move_tiles = function ()
 			return {
 				"plains",
+				"ocean_bridge",
 				"plains_castle",
 				"plains_village",
 				"desert_oasis",
@@ -257,6 +262,7 @@ standard["tower"] = {
 		can_move_tiles = function ()
 			return {
 				"plains",
+				"ocean_bridge",
 				"plains_castle",
 				"plains_village",
 				"desert_oasis",
@@ -326,6 +332,7 @@ standard["pawn"] = {
 		can_move_tiles = function ()
 			return {
 				"plains",
+				"ocean_bridge",
 				"plains_castle",
 				"plains_florest",
 				"plains_village",
@@ -366,6 +373,7 @@ standard["emperor"] = {
 		can_move_tiles = function ()
 			return {
 				"plains",
+				"ocean_bridge",
 				"plains_castle",
 				"plains_village",
 			}

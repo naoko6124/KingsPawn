@@ -117,7 +117,7 @@ function draw(sx, sy)
 					tile_hover,
 					x,
 					y,
-				0, zoom * sx, zoom * sy
+					0, zoom * sx, zoom * sy
 					)
 			end
 		end

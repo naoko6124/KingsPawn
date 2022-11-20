@@ -35,13 +35,13 @@ while true do
 	local client, err = server:accept()
 
 	if err == nil then
-		server:settimeout(2)
+		client:settimeout(2)
 		local clientname, err = client:receive()
 		if (err == nil and clientname ~= nil and clientname ~= "") then
 			totalclient = totalclient + 1
 			clients[totalclient] = client
 			clients_name[totalclient] = clientname
-			print(">> " .. clientname .. " entrou!")
+			print(">> " .. clientname .. " joined!")
 			client:send(totalclient .. "\n")
 		else
 			client:send("error\n")
@@ -68,7 +68,7 @@ while true do
 						partida.players[partida.current] = {id = i, name = clients_name[i]}
 						clients[i]:send(partida.current .. "\n")
 						partida.current = partida.current + 1
-						print(clients_name[i] .. " entrou na partida de " .. partida.players[0].name .. " (" .. partida.current .. "/4)")
+						print(clients_name[i] .. " joined on " .. partida.players[0].name .. "'s match! (" .. partida.current .. "/4)")
 						if (partida.current == 4) then
 							for key, player in pairs(partida.players) do
 								clients[player.id]:send("partida\n")
@@ -77,7 +77,7 @@ while true do
 								clients[player.id]:send(partida.players[2].name .. "\n")
 								clients[player.id]:send(partida.players[3].name .. "\n")
 							end
-							print("partida de " .. partida.players[0].name .. " iniciada")
+							print(partida.players[0].name .. "'s match started!")
 						else
 							for uid, player in pairs(partida.players) do
 								clients[player.id]:send("entrou\n")
@@ -96,7 +96,7 @@ while true do
 					partida.players[0] = {id = i, name = clients_name[i]}
 					table.insert(partidas, partida)
 					clients[i]:send("0\n")
-					print("partida criada por " .. clients_name[i] .. " (1/4)")
+					print("Match created by " .. clients_name[i] .. "! (1/4)")
 				end
 			end
 		end
@@ -114,11 +114,11 @@ while true do
 						local target_id = tonumber(clients[player.id]:receive())
 						clients[player.id]:settimeout(4)
 						local unit_id = tonumber(clients[player.id]:receive())
-
-						print("target_id: " .. target_id)
-						clients[partida.players[target_id].id]:send("perdeu\n")
-
+						
 						if unit_id == 0 then
+
+							clients[partida.players[target_id].id]:send("perdeu\n")
+
 							local new_match = {}
 							local j = 0
 							for k = 0, table.getn(partida.players) do
@@ -146,17 +146,18 @@ while true do
 						end
 
 						for k, other in pairs(partida.players) do
-							print(k)
-							print(other.name)
 							if (player.id ~= other.id) then
-								clients[other.id]:send("killnmove\n")
-								clients[other.id]:send(target_id .. "\n")
-								clients[other.id]:send(unit_id .. "\n")
 								if (err == nil and msg ~= nil and msg == "move") then
-									print(uid .. " - " .. unit_id_2)
+									clients[other.id]:send("killnmove\n")
+									clients[other.id]:send(target_id .. "\n")
+									clients[other.id]:send(unit_id .. "\n")
 									clients[other.id]:send(uid .. "\n")
 									clients[other.id]:send(unit_id_2 .. "\n")
 									clients[other.id]:send(new_pos .. "\n")
+								else
+									clients[other.id]:send("kill\n")
+									clients[other.id]:send(target_id .. "\n")
+									clients[other.id]:send(unit_id .. "\n")
 								end
 							end
 						end
@@ -165,8 +166,6 @@ while true do
 						local unit_id = clients[player.id]:receive()
 						clients[player.id]:settimeout(4)
 						local new_pos = clients[player.id]:receive()
-
-						print(unit_id .. ": " .. new_pos)
 
 						for other_id, other in pairs(partida.players) do
 							if (player.id ~= other.id) then

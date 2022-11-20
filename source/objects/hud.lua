@@ -16,6 +16,8 @@ local sy = wh/screen_height
 local apagada, acesa
 local your_turn
 
+local cursor, cursor_hover
+
 local on_hud
 
 local on_config = false
@@ -26,6 +28,9 @@ function load(change_screen)
 
 	apagada = love.graphics.newImage("sprites/UI/bolinha_apagada.png")
 	acesa = love.graphics.newImage("sprites/UI/bolinha_acesa.png")
+
+	cursor = love.mouse.newCursor("sprites/UI/cursor.png", 6, 6)
+	cursor_hover = love.mouse.newCursor("sprites/UI/cursor_hover.png", 10, 6)
 
 	font = love.graphics.newImageFont("fonts/pixel.png", " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,!?-+/():;%&`'*#=[]\"_", 1)
 
