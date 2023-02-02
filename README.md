@@ -1,5 +1,7 @@
 # King's Pawn
 
+![king's pawn](https://github.com/naoko6124/KingsPawn/blob/main/image.png?raw=true)
+
 A strategy game on a hexagon tile-based board with fantasy-like characters, developed for the 15th Game Jam at Facens Plugin.
 
 ## Documentation
